@@ -12,8 +12,10 @@ import {
     RectangleGroupIcon,
     FunnelIcon,
     CircleStackIcon,
-    ChatBubbleLeftIcon
+    ChatBubbleLeftIcon,
+    PencilSquareIcon
 } from '@heroicons/react/24/outline'
+import useEditor, { type Editor } from '../zustand/editor';
 
 interface Props {
     handleChangeSettings: (
@@ -40,7 +42,8 @@ export default function TopNav(props: Props) {
     const [showPatch, setShowPatch] = useLocalStorage('showPatch', 'true');
     const [showHead, setShowHead] = useLocalStorage('showHead', 'false');
     const [savePreviousResponse, setSavePreviousResponse] = useLocalStorage('savePreviousResponse', 'false');
-
+    const [localStorageEditor, setLocalStorageEditor] = useLocalStorage('editor', 'ace-editor') as [Editor, React.Dispatch<React.SetStateAction<Editor>>];
+    const {editor,setEditor} = useEditor();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleChangeGroupby = (e: any) => {
         setGroupby(e.target.value)
@@ -82,6 +85,10 @@ export default function TopNav(props: Props) {
         localStorage.clear()
         window.location.reload()
     }
+    const handleChangeEditor = (e:any) => {
+        setEditor(e.target.checked ? 'textarea': 'ace-editor')
+        setLocalStorageEditor(e.target.checked ? 'textarea': 'ace-editor')
+    }
 
 
     const toggleDarkMode = () => {
@@ -96,6 +103,7 @@ export default function TopNav(props: Props) {
     }
 
     useEffect(() => {
+        setEditor(localStorageEditor)
         if (theme) {
             document.documentElement.setAttribute('data-theme', theme);
             return
@@ -238,6 +246,19 @@ export default function TopNav(props: Props) {
                                     </label>
                                     <small className='pl-1'>Should you want to save previous response on local storage</small>
                                 </div>
+                                <h4 className="font-bold mt-10">
+                                    <PencilSquareIcon className="inline-block h-6 w-6 mr-1" />
+                                    Editor
+                                </h4>
+                                <div className='divider'></div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Use textarea</span>
+                                        <input type="checkbox" onChange={handleChangeEditor} className="toggle toggle-success" checked={editor === 'textarea'} />
+                                    </label>
+                                    <small className='pl-1'></small>
+                                </div>
+
                                 <h4 className="font-bold mt-10">
                                     <CircleStackIcon className="inline-block h-6 w-6 mr-1" />
                                     Storage

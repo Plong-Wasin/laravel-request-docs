@@ -13,6 +13,7 @@ import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 import { PaperAirplaneIcon, ChevronRightIcon, ExclamationTriangleIcon, LockOpenIcon } from '@heroicons/react/24/outline'
+import useEditor from '../../zustand/editor';
 
 
 interface Props {
@@ -56,6 +57,7 @@ export default function ApiActionRequest(props: Props) {
         setUploadedFiles(uf)
         handleFileChange(files, file)
     }
+    const { editor, setEditor, isTextareaEditor, isAceEditor } = useEditor();
 
     useEffect(() => {
         //check if lrdDocsItem has rules
@@ -116,7 +118,23 @@ export default function ApiActionRequest(props: Props) {
                         editorProps={{
                             $blockScrolling: true
                         }}
+                        style={isTextareaEditor ? { display: "none" } : {}}
                     />
+                    <textarea
+                        style={{
+                            width: "100%",
+                            height: "200px",
+                            backgroundColor: "#282c34",
+                            color: "#abb2bf",
+                            fontFamily: "monospace",
+                            fontSize: "14px",
+                            display: isTextareaEditor ? "block" : "none",
+                            resize: "none",
+                        }}
+                        wrap='off'
+                        value={requestHeaders}
+                        onChange={(e) => handleChangeRequestHeaders(e.target.value)}
+                    ></textarea>
                 </div>
             </div>
             <br />
@@ -138,7 +156,22 @@ export default function ApiActionRequest(props: Props) {
                         editorProps={{
                             $blockScrolling: true
                         }}
+                        style={isTextareaEditor ? { display: "none" } : {}}
                     />
+                    <textarea
+                        style={{
+                            width: "100%",
+                            height: "200px",
+                            backgroundColor: "#282c34",
+                            color: "#abb2bf",
+                            fontFamily: "monospace",
+                            fontSize: "14px",
+                            display: isTextareaEditor ? "block" : "none",
+                            resize: "none",
+                        }}
+                        value={queryParams}
+                        onChange={(e) => setQueryParams(e.target.value)}
+                    ></textarea>
                 </div>
             )}
 
@@ -192,7 +225,22 @@ export default function ApiActionRequest(props: Props) {
                         editorProps={{
                             $blockScrolling: true
                         }}
+                        style={isTextareaEditor ? { display: "none" } : {}}
                     />
+                    <textarea
+                        style={{
+                            width: "100%",
+                            height: "200px",
+                            backgroundColor: "#282c34",
+                            color: "#abb2bf",
+                            fontFamily: "monospace",
+                            fontSize: "14px",
+                            display: isTextareaEditor ? "block" : "none",
+                            resize: "none",
+                        }}
+                        value={bodyParams}
+                        onChange={(e) => setBodyParams(e.target.value)}
+                    ></textarea>
                 </div>
             )}
         </>

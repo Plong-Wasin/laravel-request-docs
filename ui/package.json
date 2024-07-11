@@ -25,12 +25,13 @@
     "react-markdown": "^9.0.1",
     "react-use-localstorage": "^3.5.3",
     "remark-gfm": "^4.0.0",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "astro-compress": "^2.2.10",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "astro-compress": "^2.2.10",
     "autoprefixer": "^10.4.17",
     "daisyui": "^4.6.2",
     "eslint": "^8.56.0",
